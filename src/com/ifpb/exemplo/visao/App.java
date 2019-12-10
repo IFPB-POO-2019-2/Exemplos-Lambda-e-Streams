@@ -4,10 +4,7 @@ import com.ifpb.exemplo.modelo.Pessoa;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class App {
@@ -28,6 +25,25 @@ public class App {
             new Pessoa("444.444.444-04", "José2",
                     LocalDate.of(2008,3,1))
         );
+
+        //Classe interna anônima
+//        Comparator<Pessoa> comparadorPorNome = new Comparator<Pessoa>() {
+//            @Override
+//            public int compare(Pessoa o1, Pessoa o2) {
+//                return o1.getNome().compareTo(o2.getNome());
+//            }
+//        };
+
+//        //Ordenação com lamda
+//        Collections.sort(pessoas,
+//                (o1, o2) -> o1.getNome().compareTo(o2.getNome()));
+//
+//        System.out.println(pessoas);
+//
+//        //Ordenação com method reference
+//        pessoas.sort(Comparator.comparing(Pessoa::getCpf));
+//
+//        System.out.println(pessoas);
 
         //Utilizando o consumer, imprimir os nomes das pessoas
 //        pessoas.forEach(p-> System.out.println(p.getNome()));
@@ -65,32 +81,44 @@ public class App {
 //        );
 
         //Imprimir a lista dos nomes de pessoas maiores que 18
-        System.out.println(pessoas.stream().filter(p ->
-            Period.between(
-                p.getNascimento(),LocalDate.now()).getYears()>=18)
-                .map(Pessoa::getNome).sorted()
-                .collect(Collectors.toList()));
+//        System.out.println(pessoas.stream().filter(p ->
+//            Period.between(
+//                p.getNascimento(),LocalDate.now()).getYears()>=18)
+//                .map(Pessoa::getNome).sorted()
+//                .collect(Collectors.toList()));
 
-        //Classe interna anônima
-//        Comparator<Pessoa> comparadorPorNome = new Comparator<Pessoa>() {
-//            @Override
-//            public int compare(Pessoa o1, Pessoa o2) {
-//                return o1.getNome().compareTo(o2.getNome());
-//            }
-//        };
+        //Quebrar as palavras de uma frase e exibir ordenadas
+//        String frase = "Meu nome é Paulo e meu pai também é Paulo";
+//        Arrays.stream(frase.split(" "))
+//                .map(String::toUpperCase)
+//                .distinct()
+//                .sorted()
+//                .forEach(System.out::println);
 
-//        //Ordenação com lamda
-//        Collections.sort(pessoas,
-//                (o1, o2) -> o1.getNome().compareTo(o2.getNome()));
+//        List<Integer> inteiros = new Random()
+//                .ints(30,1,
+//                        101)
+//                .boxed()
+//                .collect(Collectors.toList());
 //
-//        System.out.println(pessoas);
-//
-//        //Ordenação com method reference
-//        pessoas.sort(Comparator.comparing(Pessoa::getCpf));
-//
-//        System.out.println(pessoas);
+//        System.out.println("Original: "+inteiros);
+//        System.out.println("Ordenado: ");
+//        System.out.println(inteiros.stream().sorted()
+//                .collect(Collectors.toList()));
+//        System.out.println("Inverso: ");
+//        System.out.println(inteiros.stream().sorted(
+//                Comparator.reverseOrder())
+//                .collect(Collectors.toList()));
+//        System.out.println("Ordenado sem repetição: ");
+//        System.out.println(inteiros.stream().distinct().sorted()
+//                .collect(Collectors.toList()));
 
-
+        IntSummaryStatistics statistics =
+            new Random()
+                .ints(30,1,
+                        101)
+                .filter(n -> n%2==0)
+                .summaryStatistics();
 
     }
 
